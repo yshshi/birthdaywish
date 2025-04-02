@@ -140,6 +140,12 @@
                                  <p></p>
                             </div>
                             <img id="mewmew" width="80" src="./images/mewmew.gif" alt="">
+                            <!-- Redirect Button -->
+                            <div id="redirect-button-container" style="margin-top: 15px; display: none; text-align: center;">
+                                <button id="redirect-button" style="padding: 5px 10px; background-color: #FF69B4; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                                    Click me!
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -250,10 +256,15 @@
                 }
                 else{
                     clearInterval(intervalContent)
+                    // Show the button after text animation is completed
+                    document.getElementById("redirect-button-container").style.display = "block";
                 }
             },50)
         },6000)
     })
+    $("#redirect-button").on("click", function() {
+    window.location.href = "next.html"; // 
+    });
     $(".close").on("click", function(){
         clearInterval(intervalContent)
         document.querySelector(".title__letter").textContent = "";
@@ -268,6 +279,8 @@
             })
         $(".box__letter").slideUp();
         $(".letter__border").slideUp();
+        // Hide the button when the animation resets
+        document.getElementById("redirect-button-container").style.display = "none";
     })
 </script>
 </html>

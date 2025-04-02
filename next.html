@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Message</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body, html {
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ff4b5c;
+            text-shadow: 0 0 10px rgba(255, 75, 92, 0.8);
+        }
+
+        .content p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            filter: brightness(0.5);
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop>
+        <source src="./video/intro_video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <audio id="background-audio" loop>
+        <source src="./audio/next_audio.mpeg" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <!-- Play/Pause button -->
+    <div id="audio-control">
+        <i class="fa-solid fa-play"></i>
+    </div>
+    
+    <div class="content">
+        
+        
+    </div>
+</body>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const audio = document.getElementById('background-audio');
+        const audioControl = document.getElementById('audio-control');
+        const audioIcon = audioControl.querySelector('i');
+
+        // Trigger audio play/pause on button click
+        audioControl.addEventListener('click', function () {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    audioIcon.classList.replace('fa-play', 'fa-pause');
+                }).catch(error => console.error('Playback failed:', error));
+            } else {
+                audio.pause();
+                audioIcon.classList.replace('fa-pause', 'fa-play');
+            }
+        });
+
+        // Automatically try to play audio after user interaction with the page
+        document.body.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    audioIcon.classList.replace('fa-play', 'fa-pause');
+                }).catch(error => console.error('Autoplay prevented:', error));
+            }
+        }, { once: true });
+    });
+</script>
+</html>
